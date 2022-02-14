@@ -1,6 +1,7 @@
 using System.Linq;
 using System;
 using WebApi.DBOperations;
+using AutoMapper;
 
 namespace WebApi.BookOperations
 {
