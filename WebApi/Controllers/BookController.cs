@@ -5,7 +5,9 @@ using System;
 using WebApi.BookOperations;
 using WebApi.BookOperations.CreateBook;
 using WebApi.BookOperations.DeleteBookValidator;
+using WebApi.BookOperations.GetBookDetails;
 using WebApi.BookOperations.GetBooks;
+using WebApi.BookOperations.UpdateBook;
 using WebApi.DBOperations;
 namespace WebApi.Controllers
 {
@@ -37,6 +39,8 @@ namespace WebApi.Controllers
             {
                 GetBookDetailQuery getBookDetail = new GetBookDetailQuery(_context, _mapper);
                 getBookDetail.GetById = id;
+                GetBookDetailsValidator validator = new GetBookDetailsValidator();
+                validator.ValidateAndThrow(getBookDetail);
                 result = getBookDetail.Handle();
             }
             catch (Exception ex)
@@ -67,16 +71,7 @@ namespace WebApi.Controllers
                 //ValidationResult validationResult =
                 validator.ValidateAndThrow(command);
                 command.Handle();
-                //if (!validationResult.IsValid)
-                //    foreach (var item in validationResult.Errors)
-                //    {
-                //        Console.WriteLine("ozellik: " + item.PropertyName + " - Error Message :" + item.ErrorMessage);
-                //    }
-                //else
-                //{
-
-
-                //}
+             
 
             }
             catch (Exception ex)
@@ -95,6 +90,9 @@ namespace WebApi.Controllers
                 UpdateBookCommand command = new UpdateBookCommand(_context);
                 command.UpdateBookId = id;
                 command.Model = updatedBook;
+
+                UpdateBookValidator validator = new UpdateBookValidator();
+                validator.ValidateAndThrow(command);
                 command.Handle();
             }
             catch (Exception ex)

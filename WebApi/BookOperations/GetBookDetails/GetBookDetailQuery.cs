@@ -19,7 +19,7 @@ namespace WebApi.BookOperations{
             
               var result =_dbContext.Books.Where(book=>book.Id ==GetById).SingleOrDefault();
               if(result is null) 
-                throw new InvalidOperationException("Kitap zaten mevcut");
+                throw new InvalidOperationException("Boyle bir kitap yok");
             var getBook = _mapper.Map<BookDetailViewModel>(result);
               //  new BookDetailViewModel{
               //    GenreId =((GenreEnum)result.GenreId).ToString(),
